@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <title>AhlerSolutions</title>
+  </head>
+  <body class="bg-secondary">
+    <header id="head" class="d-print-none">
+      <div class="px-3 py-2 text-bg-dark">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+          >
+            <h1 class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+              <i class="bi-gem display-2 text-center">AhlerSolutions</i>
+            </h1>
+            <ul
+              class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"
+            >
+              <li>
+                <a href="#" class="nav-link text-secondary text-center">
+                  <i class="bi-house-fill display-6"></i>
+                  <p class="m-0">Home</p>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white text-center">
+                  <i class="bi-speedometer2 display-6"></i>
+                  <p class="m-0">Dashboard</p>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white text-center">
+                  <i class="bi-grid display-6"></i>
+                  <p class="m-0">Products</p>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white text-center">
+                  <i class="bi-person-circle display-6"></i>
+                  <p class="m-0">Perfil</p>
+                </a>
+              </li>
+              <li>
+                <a href="#foot" class="nav-link text-white text-center">
+                  <i class="bi-envelope display-6"></i>
+                  <p class="m-0">Contact</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <div class="text-end fixed-top m-md-3 d-print-none">
+        <a href="#h2Produccion">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2.5rem"
+            fill="currentColor"
+            class="bi bi-plus-circle-fill text-success"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="text-end fixed-bottom m-md-3 d-print-none">
+        <a href="#top">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2.5rem"
+            fill="currentColor"
+            class="bi bi-arrow-up-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
+            />
+          </svg>
+        </a>
+      </div>
+      <form id="validar" class="row g-3 d-print-none" novalidate>
+        <div class="col-md-4 text-center mt-5">
+          <div class="input-group">
+            <span class="input-group-text">Producto</span>
+            <input type="text" class="form-control" id="producto" required />
+          </div>
+        </div>
+        <div class="col-md-4 text-center mt-5">
+          <div class="input-group">
+            <span class="input-group-text">Cantidad</span>
+            <input type="number" class="form-control" id="cantidad" required />
+          </div>
+        </div>
+        <div class="col-md-4 text-center mt-5">
+          <div class="input-group">
+            <span class="input-group-text">ID</span>
+            <input
+              type="number"
+              class="form-control"
+              id="id"
+              aria-describedby="inputGroupPrepend"
+              disabled
+              required
+            />
+          </div>
+        </div>
+        <div class="col-md-3 col-6 text-center text-white mt-md-5">
+          <button class="w-100 btn btn-success" type="button" id="agregar">
+            Añadir
+          </button>
+          <label for="agregar">Nuevo Producto</label>
+        </div>
+        <div class="col-md-3 col-6 text-center text-white mt-md-5">
+          <button class="w-100 btn btn-warning" type="button" id="modificar">
+            Modificar
+          </button>
+          <label for="agregar">Nombre/Stock</label>
+        </div>
+        <div class="col-md-3 col-6 text-center text-white mt-md-5">
+          <button class="w-100 btn btn-danger" type="button" id="borrar">
+            Borrar
+          </button>
+          <label for="agregar">Producto</label>
+        </div>
+        <div class="col-md-3 col-6 text-center text-white mt-md-5">
+          <button class="w-100 btn btn-primary" type="button" id="mostrar">
+            Buscar
+          </button>
+          <label for="agregar">Productos</label>
+        </div>
+      </form>
+      <div class="mt-5">
+        <div class="text-white">
+          <!-- Mostrar Productos -->
+          <div class="border w-100 d-print-none">
+            <h2 class="text-center" id="h2Productos">Productos</h2>
+            <div id="mostrarDatos" class="card-body row"></div>
+          </div>
+          <!-- Produccion -->
+          <div class="border w-100 mt-5">
+            <div id="imprimir">
+            <h2 class="text-center" id="h2Produccion">Producción</h2>
+            <div id="produccion" class="row"></div>
+              <h2 class="text-center mt-5" id="">Cantidades</h2>
+              <table id="table" class="table text-center">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-6">Producto</th>
+                    <th scope="col" class="col-6">Cantidad</th>
+                  </tr>
+                </thead>
+                <tbody id="produccion2">
+                </tbody>
+              </table>
+            </div>
+            <div class="text-center d-print-none">
+              <button class="btn btn-primary mt-3 col-12" id="finalizar">
+                Mostrar Cantidades
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Bootstrap -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog text-white">
+          <div class="modal-content">
+            <div class="modal-header bg-dark">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Anclar Productos a <span id="modalTitulo"></span>
+              </h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body bg-secondary">
+              <label for="buscProducto" class="form-label">Buscador</label>
+              <input
+                type="search"
+                class="form-control bg-dark text-white mb-3"
+                name=""
+                id="buscProducto"
+              />
+              <div id="anclados"></div>
+              <div id="modal-body" class=""></div>
+            </div>
+            <div class="modal-footer bg-dark">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Bootstrap Produccion-->
+      <div
+        class="modal fade"
+        id="pModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabelprod"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog text-white">
+          <div class="modal-content">
+            <div class="modal-header bg-dark">
+              <h5 class="modal-title" id="exampleModalLabelprod">
+                Cantidad de <span id="modalTituloProd"></span> a produccion.
+              </h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body bg-secondary">
+              <label for="cantProducto" class="form-label">Cantidad</label>
+              <input
+                type="number"
+                class="form-control bg-dark text-white mb-3"
+                name=""
+                id="cantProducto"
+              />
+              <div id="modal-body-prod" class=""></div>
+            </div>
+            <div class="modal-footer bg-dark">
+              <button
+                id="enviarProduccion"
+                type="button"
+                class="btn btn-success"
+              >
+                Enviar a Produccion
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer id="foot" class="text-center text-lg-start bg-dark text-white mt-5 d-print-none">
+      <!-- Section: Social media -->
+      <section
+        class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+      >
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+          <span>Get connected with us on social networks:</span>
+        </div>
+        <!-- Left -->
+
+        <!-- Right -->
+        <div>
+          <a
+            href=""
+            target="_blank"
+            class="me-4 text-reset text-decoration-none"
+          >
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/agustin-ahlers/"
+            target="_blank"
+            class="me-4 text-reset text-decoration-none"
+          >
+            <i class="bi bi-linkedin"></i>
+          </a>
+          <a
+            href="https://github.com/Agu0925"
+            target="_blank"
+            class="me-4 text-reset text-decoration-none"
+          >
+            <i class="bi bi-github"></i>
+          </a>
+        </div>
+        <!-- Right -->
+      </section>
+      <!-- Section: Social media -->
+
+      <!-- Section: Links  -->
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <!-- Content -->
+              <h6 class="mb-4 fw-bold">
+                <i class="bi-gem"> AhlerSolutions </i>
+              </h6>
+              <p>
+                We are dedicated to solving problems in the form of programs. We
+                work with the latest and best tools.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">Products</h6>
+              <p>
+                <a href="#!" class="text-reset">React</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">Nodejs</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">Css</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">Bootstrap</a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+              <p><i class="bi-house-fill"></i> Salto, UY</p>
+              <p>
+                <i class="bi-envelope-fill"></i>
+                AhlerSolutions@hotmail.com
+              </p>
+              <p><i class="bi-phone-fill"></i> +598 94523649</p>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+      </section>
+      <!-- Section: Links  -->
+
+      <!-- Copyright -->
+      <div
+        class="text-center p-4"
+        style="background-color: rgba(0, 0, 0, 0.05)"
+      >
+        © 2022 Copyright:
+        <a class="text-reset fw-bold">@AhlerSolutions</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="./bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- SCRIPT APPLICATION     -->
+    <script src="./js/script.js"></script>
+  </body>
+</html>
