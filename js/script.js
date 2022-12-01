@@ -106,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 setTimeout(() => {
                     window.print();
+                    document.getElementById("produccion2").innerHTML = "";
+                    document.getElementById("produccion").innerHTML = "";
                 }, 200);
             });
     });
