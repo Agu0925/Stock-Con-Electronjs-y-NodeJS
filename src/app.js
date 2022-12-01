@@ -31,7 +31,7 @@ app.post('/', (req, res) => {
         //Pusheo el req.body que recibe
         servidor.push(req.body);
         //Reescribo el json con writeFile
-        fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+        fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
             if (err)
                 console.log(err);
         })
@@ -62,7 +62,7 @@ app.put('/:id', (req, res) => {
         prod.Producto = req.body.Producto;
         prod.Cantidad = req.body.Cantidad;
         //Reescribo el json con writeFile
-        fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+        fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
             if (err)
                 console.log(err);
         })
@@ -79,7 +79,7 @@ app.delete("/:id", (req, res) => {
         //Borro el objeto con splice le doy el indice con findIndex
         servidor.splice(servidor.findIndex(servidor => servidor.id == req.params.id), 1);
         //Reescribo el json con writeFile
-        fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+        fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
             if (err)
                 console.log(err);
         })
@@ -104,7 +104,7 @@ app.put('/anclar/:id', (req, res) => {
             if (partes[partes.findIndex(partes => partes.id == req.body.id)]) { res.send(prod) } else {
                 partes.push(req.body);
                 //Reescribo el json con writeFile
-                fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+                fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
                     if (err)
                         console.log(err);
                 });
@@ -114,7 +114,7 @@ app.put('/anclar/:id', (req, res) => {
         } else {
             prod.partes = [req.body];
             //Reescribo el json con writeFile
-            fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+            fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
                 if (err)
                     console.log(err);
             });
@@ -137,7 +137,7 @@ app.delete('/anclar/:id', (req, res) => {
                 //Borro el objeto con splice le doy el numero indice con findIndex
                 partes.splice(partes.findIndex(partes => partes.id == req.body.id), 1)
                 //Reescribo el json con writeFile
-                fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+                fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
                     if (err)
                         console.log(err);
                 });
@@ -170,7 +170,7 @@ app.put('/elimProduccion/:id', (req, res) => {
         prod.Producto = req.body.Producto;
         prod.Cantidad = req.body.Cantidad;
         //Reescribo el json con writeFile
-        fs.writeFile("./server/servidor.json", JSON.stringify(servidor), (err) => {
+        fs.writeFile("./src/server/servidor.json", JSON.stringify(servidor), (err) => {
             if (err)
                 console.log(err);
         })
