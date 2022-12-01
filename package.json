@@ -1,7 +1,7 @@
 {
   "name": "appstock",
   "version": "1.0.0",
-  "description": "",
+  "description": "Aplicacion con Electron y Nodejs",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
