@@ -37,8 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 mostrar();
                 arrayProd();
             }, 200);
-        } else {
-            alert("Ya se encuentra este objeto o debe completar todos los datos");
         }
     });
     //Boton para modificar un producto
@@ -58,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 mostrar();
             }, 200);
-        } else { alert("Selecciona el producto antes de modificarlo o debe completar los datos"); }
+        }
     });
     //Boton para borrar un producto
     document.getElementById("borrar").addEventListener("click", () => {
@@ -71,8 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 mostrar();
             }, 200);
-        } else {
-            alert("Selecciona el producto antes de borrarlo");
         }
     });
     //Buscador para modal
@@ -414,7 +410,6 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                         productoAnclado += partes.Producto + ": <span class='" + partes.Producto + "'>" + partes.cantidad * document.getElementById('cantProducto').value + "</span>" + " ";
                     };
                     if (document.getElementById(`produc${iterator.id}`)) {
-                        alert("Ya ingresaste el producto")
                     } else {
                         document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
@@ -450,7 +445,7 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                     }
                 } else {
                     if (document.getElementById(`produc${iterator.id}`)) {
-                        alert("ya ingresaste este producto")
+                        
                     } else {
                         document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
@@ -489,7 +484,6 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                     mostrar();
                 }, 200);
             } else {
-                alert("El numero introducido debe ser mayor a 0");
                 document.getElementById('cantProducto').value = "";
             };
         });
