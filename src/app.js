@@ -1,12 +1,14 @@
 let express = require('express');
 let app = express();
 let fs = require('fs');
+//Metodo cors para habilitar peticiones CORS en local
 let cors = require('cors');
+//Metodo path para dar la ruta raiz para que sea compatible en varios OS
 let path = require('path');
 //Traigo el json a utilizar como base de datos
 let servidor = require(path.join(__dirname, 'server', 'servidor.json'));
 //Cors para habilitar envios en local
-app.use(cors())
+app.use(cors());
 //uso express.json para leer el dato enviado como js
 app.use(express.json());
 let port = process.env.PORT || 3000;
@@ -180,4 +182,4 @@ app.put('/elimProduccion/:id', (req, res) => {
         //Sino existe mandar el json sin cambios
         res.send(servidor);
     };
-})
+});
