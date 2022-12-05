@@ -247,14 +247,14 @@ function id() {
     fetch(url)
         .then((resp) => resp.json())
         .then((datos) => {
-            idProd = datos.length + 1;
-            document.getElementById("id").value = datos.length + 1;
-            for (const iterator of datos) {
-                if (iterator.id == idProd) {
-                    idProd = idProd + 1
+                idProd = Math.floor(Math.random() * 999999);
+                if (datos[datos.findIndex(datos => datos.id == idProd)]) {
+                    idProd = Math.floor(Math.random() * 999999);
+                    document.getElementById("id").value = idProd;
+                }else{
                     document.getElementById("id").value = idProd;
                 };
-            };
+            console.log(idProd);
         });
 };
 //Funcion para pushear los nombres en un array para hacer validacion
@@ -445,7 +445,7 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                     }
                 } else {
                     if (document.getElementById(`produc${iterator.id}`)) {
-                        
+
                     } else {
                         document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
