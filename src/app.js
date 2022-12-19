@@ -38,8 +38,8 @@ app.post('/', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send(servidor);
-    } else { res.send(servidor); }
+        res.send({res:true});
+    } else { res.send({res:false}); }
 });
 //Metodo PUT para modificar un item
 app.put('/:id', (req, res) => {
@@ -69,10 +69,10 @@ app.put('/:id', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send(servidor);
+        res.send({res:true});
     } else {
         //Sino existe mandar el json sin cambios
-        res.send(servidor);
+        res.send({res:false});
     };
 })
 //Metodo DELETE
@@ -86,10 +86,10 @@ app.delete("/:id", (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send(servidor);
+        res.send({res:true});
     } else {
         //Sino hay objetos con el id seleccionado mando el json sin cambios
-        res.send(servidor);
+        res.send({res:false});
     }
 });
 //Metodo Put para anclar productos
@@ -111,7 +111,7 @@ app.put('/anclar/:id', (req, res) => {
                     if (err)
                         console.log(err);
                 });
-                res.send(partes);
+                res.send({res:true});
             }
             //Sino tiene productos anclados creo el array partes y pusheo el objeto
         } else {
@@ -121,9 +121,9 @@ app.put('/anclar/:id', (req, res) => {
                 if (err)
                     console.log(err);
             });
-            res.send(prod.partes);
+            res.send({res:true});
         };
-    } else { res.send(servidor) };
+    } else { res.send({res:false}) };
 });
 //Metodo Delete para productos anclados
 //Traigo el array de anclados y selecciono el indice para borrarlo
@@ -144,10 +144,10 @@ app.delete('/anclar/:id', (req, res) => {
                     if (err)
                         console.log(err);
                 });
-                res.send(partes);
-            } else { res.send(partes); };
-        } else { res.send(prod) };
-    } else { res.send(servidor) };
+                res.send({res:true});
+            } else { res.send({res:false}); };
+        } else { res.send({res:false}) };
+    } else { res.send({res:false}) };
 });
 //Metodo PUT para eliminar de produccion
 app.put('/elimProduccion/:id', (req, res) => {
@@ -177,9 +177,9 @@ app.put('/elimProduccion/:id', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send(servidor);
+        res.send({res:true});
     } else {
         //Sino existe mandar el json sin cambios
-        res.send(servidor);
+        res.send({res:false});
     };
 });
