@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("buscProducto").addEventListener("input", () => {
         modal(idmodal);
     });
-    //Boton Finalizar
+    //Boton Finalizar El envio a produccion
     document.getElementById("finalizar").addEventListener("click", () => {
         fetch(url)
             .then((resp) => resp.json())
@@ -83,9 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("produccion2").innerHTML = "";
                 let cantidades = "";
                 for (const iterator of datos) {
-                    if (document.getElementsByClassName(iterator.Producto)) {
+                    if (document.getElementsByClassName("idproduccion" + iterator.id)) {
                         let suma = [];
-                        for (const iterator2 of document.getElementsByClassName(iterator.Producto)) {
+                        for (const iterator2 of document.getElementsByClassName("idproduccion" + iterator.id)) {
                             suma.push(parseInt(iterator2.innerHTML));
                             if (document.getElementById("suma" + iterator.id)) {
                                 document.getElementById("produccion2").removeChild(document.getElementById("suma" + iterator.id));
@@ -126,7 +126,7 @@ function mostrar() {
                             if (iterator.Cantidad < 10) {
                                 let productoAnclado = "";
                                 for (const partes of iterator.partes) {
-                                    productoAnclado += partes.Producto + " "
+                                    productoAnclado += " - " + partes.Producto
                                 };
                                 productos += `
                     <div onclick="selecID(${iterator.id})" class="col-md-6 py-md-3 m-auto border btn btn-danger">
@@ -134,7 +134,7 @@ function mostrar() {
                             <div class="col-md-6 my-2 my-md-1">
                                 <h4 class="card-title">${iterator.Producto}</h4>
                                 <p class="card-text my-md-4 text-start">Stock - ${iterator.Cantidad}</p>
-                                <p class="card-text text-start">Partes - ${productoAnclado} </p>
+                                <p class="card-text text-start">Partes ${productoAnclado} </p>
                             </div>
                             <div class="col-md-6 m-auto text-center">
                                 <img class="w-50"
@@ -153,7 +153,7 @@ function mostrar() {
                             } else {
                                 let productoAnclado = "";
                                 for (const partes of iterator.partes) {
-                                    productoAnclado += partes.Producto + " "
+                                    productoAnclado += " - " + partes.Producto
                                 };
                                 productos += `
                     <div onclick="selecID(${iterator.id})" class="col-md-6 py-md-3 m-auto border btn btn-dark">
@@ -161,7 +161,7 @@ function mostrar() {
                             <div class="col-md-6 my-2 my-md-1">
                                 <h4 class="card-title">${iterator.Producto}</h4>
                                 <p class="card-text my-md-4 text-start">Stock - ${iterator.Cantidad}</p>
-                                <p class="card-text text-start">Partes - ${productoAnclado} </p>
+                                <p class="card-text text-start">Partes ${productoAnclado} </p>
                             </div>
                             <div class="col-md-6 m-auto text-center">
                                 <img class="w-50"
@@ -247,14 +247,13 @@ function id() {
     fetch(url)
         .then((resp) => resp.json())
         .then((datos) => {
+            idProd = Math.floor(Math.random() * 999999);
+            if (datos[datos.findIndex(datos => datos.id == idProd)]) {
                 idProd = Math.floor(Math.random() * 999999);
-                if (datos[datos.findIndex(datos => datos.id == idProd)]) {
-                    idProd = Math.floor(Math.random() * 999999);
-                    document.getElementById("id").value = idProd;
-                }else{
-                    document.getElementById("id").value = idProd;
-                };
-            console.log(idProd);
+                document.getElementById("id").value = idProd;
+            } else {
+                document.getElementById("id").value = idProd;
+            };
         });
 };
 //Funcion para pushear los nombres en un array para hacer validacion
@@ -407,10 +406,9 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
             if (document.getElementById('cantProducto').value > 0) {
                 if (iterator.partes) {
                     for (const partes of iterator.partes) {
-                        productoAnclado += partes.Producto + ": <span class='" + partes.Producto + "'>" + partes.cantidad * document.getElementById('cantProducto').value + "</span>" + " ";
+                        productoAnclado += " - " + partes.Producto + ": <span class='" + "idproduccion" + partes.id + "'>" + partes.cantidad * document.getElementById('cantProducto').value + "</span>" + " ";
                     };
-                    if (document.getElementById(`produc${iterator.id}`)) {
-                    } else {
+                    if (!document.getElementById(`produc${iterator.id}`)) {
                         document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
 <div class="row">
@@ -421,7 +419,7 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
     <div class="col-12 my-2 my-md-1">
         <h4 class="card-title">${iterator.Producto}</h4>
         <p class="card-text my-md-4 text-start">Cantidad - <span id="c${iterator.id}">${parseInt(document.getElementById('cantProducto').value)}</span></p>
-        <p class="card-text my-md-4 text-start">Partes - ${productoAnclado}</p>
+        <p class="card-text my-md-4 text-start">Partes ${productoAnclado}</p>
     </div>
     <div class="col-md-12 my-2 my-md-1">
     </div>
@@ -444,9 +442,7 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                         location.href = "#produccion";
                     }
                 } else {
-                    if (document.getElementById(`produc${iterator.id}`)) {
-
-                    } else {
+                    if (!document.getElementById(`produc${iterator.id}`)) {
                         document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
 <div class="row">
