@@ -20,7 +20,7 @@
                       Sign up
                     </p>
 
-                    <form class="mx-1 mx-md-4">
+                    <form id="signupForm" class="mx-1 mx-md-4">
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
@@ -28,10 +28,10 @@
                             type="text"
                             id="name"
                             class="form-control"
+                            maxlength="20"
+                            required
                           />
-                          <label class="form-label" for="name"
-                            >Your Name</label
-                          >
+                          <label class="form-label" for="name">Your Name</label>
                         </div>
                       </div>
 
@@ -42,6 +42,9 @@
                             type="email"
                             id="email"
                             class="form-control"
+                            minlength="5"
+                            maxlength="100"
+                            required
                           />
                           <label class="form-label" for="email"
                             >Your Email</label
@@ -56,10 +59,11 @@
                             type="password"
                             id="pass"
                             class="form-control"
+                            minlength="6"
+                            maxlength="20"
+                            required
                           />
-                          <label class="form-label" for="pass"
-                            >Password</label
-                          >
+                          <label class="form-label" for="pass">Password</label>
                         </div>
                       </div>
 
@@ -70,6 +74,9 @@
                             type="password"
                             id="pass2"
                             class="form-control"
+                            minlength="6"
+                            maxlength="20"
+                            required
                           />
                           <label class="form-label" for="pass2"
                             >Repeat your password</label
@@ -84,7 +91,8 @@
                           class="form-check-input me-2"
                           type="checkbox"
                           value=""
-                          id="form2Example3c"
+                          id="checkSignUp"
+                          required
                         />
                         <label class="form-check-label" for="form2Example3">
                           I agree all statements in
@@ -95,7 +103,11 @@
                       <div
                         class="d-flex justify-content-center mx-4 mb-3 mb-lg-4"
                       >
-                        <button id="register" type="button" class="btn btn-primary btn-lg">
+                        <button
+                          id="register"
+                          type="submit"
+                          class="btn btn-primary btn-lg"
+                        >
                           Register
                         </button>
                       </div>

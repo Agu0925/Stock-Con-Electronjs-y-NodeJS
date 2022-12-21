@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 //Llamo a la app creada con node para levantar el servidor local
-require('./app.js');
+require('./NodeJS/app.js');
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -19,7 +19,8 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
-  //Abrir ConsolaDev - mainWindow.webContents.openDevTools();
+  //Abrir ConsolaDev - 
+  mainWindow.webContents.openDevTools();
   const template = [
     {
       label: ""
