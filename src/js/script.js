@@ -4,10 +4,9 @@ let idProd = "";
 let prodArray = [];
 let idmodal = "";
 let idProduccion = "";
-//Mostrar productos ni bien entro a la pagina
-mostrar();
 //Al cargar toda la pagina
 document.addEventListener("DOMContentLoaded", () => {
+    mostrar();
     id();
     arrayProd();
     //Boton para Buscar los productos
@@ -75,6 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("buscProducto").addEventListener("input", () => {
         modal(idmodal);
     });
+    //Boton para enviar a produccion 
+    document.getElementById("enviarProduccion").addEventListener("click", () => {
+        enviarProduccion();
+    });
     //Boton Finalizar El envio a produccion
     document.getElementById("finalizar").addEventListener("click", () => {
         fetch(url)
@@ -108,8 +111,59 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 });
+//Hago funcion codigoHTML para simplificar y hacer mas legible la funcion Mostrar
+function codigoHTML(id, nombre, cantidad, productoAnclado) {
+    if (cantidad < 10) {
+        return `
+<div onclick="selecID(${id})" class="col-md-6 py-md-3 m-auto border btn btn-danger">
+<div class="row">
+    <div class="col-md-6 my-2 my-md-1">
+        <h4 class="card-title">${nombre}</h4>
+        <p class="card-text my-md-4 text-start">Stock - ${cantidad}</p>
+        <p class="card-text text-start">Partes ${productoAnclado} </p>
+    </div>
+    <div class="col-md-6 m-auto text-center">
+        <img class="w-50"
+        src="./img/herramientas.jpg" alt="" />
+    </div>
+    <div class="col-md-12 my-2 my-md-1">
+    </div>
+    <div class="col-md-6 my-2 my-md-1">
+        <span onclick="produccion(${id})" data-bs-toggle="modal" data-bs-target="#pModal" class='btn btn-success w-100'>+</span>
+    </div>
+    <div class="col-md-6 my-2 my-md-1">
+        <span onclick="modal(${id})" data-bs-toggle="modal" data-bs-target="#exampleModal" class='btn btn-warning w-100'>Anclar Productos</span>
+    </div>
+</div>
+</div>`;
+    } else {
+        return `
+<div onclick="selecID(${id})" class="col-md-6 py-md-3 m-auto border btn btn-dark">
+<div class="row">
+    <div class="col-md-6 my-2 my-md-1">
+        <h4 class="card-title">${nombre}</h4>
+        <p class="card-text my-md-4 text-start">Stock - ${cantidad}</p>
+        <p class="card-text text-start">Partes ${productoAnclado} </p>
+    </div>
+    <div class="col-md-6 m-auto text-center">
+        <img class="w-50"
+        src="./img/herramientas.jpg" alt="" />
+    </div>
+    <div class="col-md-12 my-2 my-md-1">
+    </div>
+    <div class="col-md-6 my-2 my-md-1">
+        <span onclick="produccion(${id})" data-bs-toggle="modal" data-bs-target="#pModal" class='btn btn-success w-100'>+</span>
+    </div>
+    <div class="col-md-6 my-2 my-md-1">
+        <span onclick="modal(${id})" data-bs-toggle="modal" data-bs-target="#exampleModal" class='btn btn-warning w-100'>Anclar Productos</span>
+    </div>
+</div>
+</div>`;
+    }
+}
 //Realizo fetch get y imprimo los resultados
 function mostrar() {
+    let DOMproducto = document.getElementById("producto");
     fetch(url)
         .then((resp) => resp.json())
         .then((datos) => {
@@ -118,112 +172,16 @@ function mostrar() {
                 if (iterator.Producto) {
                     if (
                         iterator.Producto.toLowerCase().includes(
-                            document.getElementById("producto").value.toLowerCase()
+                            DOMproducto.value.toLowerCase()
                         ) ||
-                        document.getElementById("producto").value == ""
+                        DOMproducto.value == ""
                     ) {
                         if (iterator.partes) {
-                            if (iterator.Cantidad < 10) {
-                                let productoAnclado = "";
-                                for (const partes of iterator.partes) {
-                                    productoAnclado += " - " + partes.Producto
-                                };
-                                productos += `
-                    <div onclick="selecID(${iterator.id})" class="col-md-6 py-md-3 m-auto border btn btn-danger">
-                        <div class="row">
-                            <div class="col-md-6 my-2 my-md-1">
-                                <h4 class="card-title">${iterator.Producto}</h4>
-                                <p class="card-text my-md-4 text-start">Stock - ${iterator.Cantidad}</p>
-                                <p class="card-text text-start">Partes ${productoAnclado} </p>
-                            </div>
-                            <div class="col-md-6 m-auto text-center">
-                                <img class="w-50"
-                                src="./img/herramientas.jpg" alt="" />
-                            </div>
-                            <div class="col-md-12 my-2 my-md-1">
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="produccion(${iterator.id})" data-bs-toggle="modal" data-bs-target="#pModal" class='btn btn-success w-100'>+</span>
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="modal(${iterator.id})" data-bs-toggle="modal" data-bs-target="#exampleModal" class='btn btn-warning w-100'>Anclar Productos</span>
-                            </div>
-                        </div>
-                    </div>`;
-                            } else {
-                                let productoAnclado = "";
-                                for (const partes of iterator.partes) {
-                                    productoAnclado += " - " + partes.Producto
-                                };
-                                productos += `
-                    <div onclick="selecID(${iterator.id})" class="col-md-6 py-md-3 m-auto border btn btn-dark">
-                        <div class="row">
-                            <div class="col-md-6 my-2 my-md-1">
-                                <h4 class="card-title">${iterator.Producto}</h4>
-                                <p class="card-text my-md-4 text-start">Stock - ${iterator.Cantidad}</p>
-                                <p class="card-text text-start">Partes ${productoAnclado} </p>
-                            </div>
-                            <div class="col-md-6 m-auto text-center">
-                                <img class="w-50"
-                                src="./img/herramientas.jpg" alt="" />
-                            </div>
-                            <div class="col-md-12 my-2 my-md-1">
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="produccion(${iterator.id})" data-bs-toggle="modal" data-bs-target="#pModal" class='btn btn-success w-100'>+</span>
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="modal(${iterator.id})" data-bs-toggle="modal" data-bs-target="#exampleModal" class='btn btn-warning w-100'>Anclar Productos</span>
-                            </div>
-                        </div>
-                    </div>`;
-                            }
-                        } else if (iterator.Cantidad < 10) {
-                            productos += `
-                    <div onclick="selecID(${iterator.id})" class="col-md-6 py-md-3 m-auto border btn btn-danger">
-                        <div class="row">
-                            <div class="col-md-6 my-2 my-md-1">
-                                <h4 class="card-title">${iterator.Producto}</h4>
-                                <p class="card-text my-md-4 text-start">Stock - ${iterator.Cantidad}</p>
-                                <p class="card-text text-start">Partes - </p>
-                            </div>
-                            <div class="col-md-6 m-auto text-center">
-                                <img class="w-50"
-                                src="./img/herramientas.jpg" alt="" />
-                            </div>
-                            <div class="col-md-12 my-2 my-md-1">
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="produccion(${iterator.id})" data-bs-toggle="modal" data-bs-target="#pModal" class='btn btn-success w-100'>+</span>
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="modal(${iterator.id})" data-bs-toggle="modal" data-bs-target="#exampleModal" class='btn btn-warning w-100'>Anclar Productos</span>
-                            </div>
-                        </div>
-                    </div>`;
+                            //Utilizo map para no tener que hacer otro bucle for
+                            const productoAnclado = iterator.partes.map(partes => `- ${partes.Producto}`).join(' ');
+                            productos += codigoHTML(iterator.id, iterator.Producto, iterator.Cantidad, productoAnclado);
                         } else {
-                            productos += `
-                    <div onclick="selecID(${iterator.id})" class="col-md-6 py-md-3 m-auto border btn btn-dark">
-                        <div class="row">
-                            <div class="col-md-6 my-2 my-md-1">
-                                <h4 class="card-title">${iterator.Producto}</h4>
-                                <p class="card-text my-md-4 text-start">Stock - ${iterator.Cantidad}</p>
-                                <p class="card-text text-start">Partes - </p>
-                            </div>
-                            <div class="col-md-6 m-auto text-center">
-                                <img class="w-50"
-                                src="./img/herramientas.jpg" alt="" />
-                            </div>
-                            <div class="col-md-12 my-2 my-md-1">
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="produccion(${iterator.id})" data-bs-toggle="modal" data-bs-target="#pModal" class='btn btn-success w-100'>+</span>
-                            </div>
-                            <div class="col-md-6 my-2 my-md-1">
-                                <span onclick="modal(${iterator.id})" data-bs-toggle="modal" data-bs-target="#exampleModal" class='btn btn-warning w-100'>Anclar Productos</span>
-                            </div>
-                        </div>
-                    </div>`;
+                            productos += codigoHTML(iterator.id, iterator.Producto, iterator.Cantidad, "",);
                         }
                     }
                 }
@@ -274,9 +232,10 @@ function modal(id) {
         .then((resp) => resp.json())
         .then((datos) => {
             let ids = [];
+            let anclados = document.getElementById("anclados");
             idmodal = id;
             //Que inicie vacio el html de anclados
-            document.getElementById("anclados").innerHTML = "";
+            anclados.innerHTML = "";
             //Declaro el producto
             let prod = datos[datos.findIndex(datos => datos.id == idmodal)];
             //Le doy el titulo al modal
@@ -284,7 +243,7 @@ function modal(id) {
             //Muestro los productos anclados
             if (prod.partes) {
                 for (const partes of prod.partes) {
-                    document.getElementById("anclados").innerHTML += `
+                    anclados.innerHTML += `
                 <div id="anclaDiv${partes.id}" class="row border bg-success p-2">
                     <div class="col text-center m-auto"><p class="m-auto"><span id="prod${partes.id}">${partes.Producto}</span></p></div>
                     <div class="col text-center m-auto"><p class="m-auto">Cant - <span id="cant${partes.id}">${partes.cantidad}</span></p></div>
@@ -397,7 +356,7 @@ function produccion(id) {
         });
 };
 //Funcion para enviar a "producción"
-document.getElementById("enviarProduccion").addEventListener("click", () => {
+function enviarProduccion() {
     fetch(url)
         .then((resp) => resp.json())
         .then((datos) => {
@@ -439,7 +398,6 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                             body: JSON.stringify(objeto) // data can be `string` or {object}!
                         });
                         document.getElementById('cantProducto').value = "";
-                        location.href = "#produccion";
                     }
                 } else {
                     if (!document.getElementById(`produc${iterator.id}`)) {
@@ -473,17 +431,13 @@ document.getElementById("enviarProduccion").addEventListener("click", () => {
                             body: JSON.stringify(objeto) // data can be `string` or {object}!
                         });
                         document.getElementById('cantProducto').value = "";
-                        location.href = "#produccion";
                     }
                 };
-                setTimeout(() => {
-                    mostrar();
-                }, 200);
             } else {
                 document.getElementById('cantProducto').value = "";
             };
         });
-});
+}
 //Funcion para sacar de producción
 function sacarProduc(id) {
     fetch(url)
@@ -504,7 +458,6 @@ function sacarProduc(id) {
             });
             setTimeout(() => {
                 document.getElementById("produccion").removeChild(document.getElementById(`produc${id}`));
-                mostrar();
             }, 200);
         });
 };

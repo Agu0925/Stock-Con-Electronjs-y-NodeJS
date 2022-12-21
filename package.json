@@ -1,6 +1,6 @@
 {
   "name": "ahlersolutions",
-  "productName": "my-app",
+  "productName": "AhlerSolutions",
   "version": "1.0.0",
   "description": "Programa de stock con ElectronJs",
   "main": "src/index.js",

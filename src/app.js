@@ -183,3 +183,87 @@ app.put('/elimProduccion/:id', (req, res) => {
         res.send({res:false});
     };
 });
+//Login--------------------------------------------------
+//Libreria para Encriptar
+const crypto = require('crypto');
+//Base de usuarios
+let usuarios = require(path.join(__dirname, 'server', 'users.json'));
+//Post Login
+app.post('/login', (req, res) => {
+    let usu = usuarios[usuarios.findIndex(usuario => usuario.email === req.body.email)];
+    //Verifico que existe el usuario
+    if (usu) {
+        //declaro una variables para el hash
+        const password = JSON.stringify(req.body.pass);
+        const salt = usu.salt;  // genera un salt aleatorio
+        const iterations = 10000;  // número de iteraciones de la función de derivación de clave
+        const hashLength = 32;  // longitud del hash en bytes
+        const hash = crypto.pbkdf2Sync(password, salt, iterations, hashLength, 'sha256').toString('hex');
+        //Verifico si la contraseña coincide al hash
+        if (hash === usu.pass) {
+            //Numero Aleatorio
+            let randomNumber = Math.floor(Math.random() * 9999999);
+            //Declaro un objeto para enviarle el status y brindar informacion de la cuenta
+            let status = {
+                status: true,
+                name: usu.name,
+                email: usu.email,
+                token: randomNumber
+            }
+            //Envio el status y doy mensaje de Bienvenido
+            res.send({ res: status })
+            //Doy el token al usuario
+            usu.token = randomNumber;
+            //Reescribo el json con writeFile
+            fs.writeFile(path.join(__dirname, 'server', 'users.json'), JSON.stringify(usuarios), (err) => {
+                if (err)
+                    console.log(err);
+            })
+            //Sino tiro errores con el estado false
+        } else (res.send({ status: false, res: "Contraseña incorrecta" }))
+    } else (res.send({ status: false, res: "No existe esta cuenta" }))
+});
+//Post SignUp
+app.post('/signup', (req, res) => {
+    //Validacion para no enviar campos vacios
+    if (req.body.name != "" && req.body.email != "" && req.body.pass != "" && req.body.pass2 != "") {
+        //Validacion para no repetir Email
+        if (!usuarios[usuarios.findIndex(usuario => usuario.email === req.body.email)] && req.body.pass === req.body.pass2) {
+            //Realizo el hash a la pass
+            //declaro una variables para el hash
+            const password = JSON.stringify(req.body.pass);
+            const salt = Math.random().toString(36).substring(2);  // genera un salt aleatorio
+            const iterations = 10000;  // número de iteraciones de la función de derivación de clave
+            const hashLength = 32;  // longitud del hash en bytes
+            const hash = crypto.pbkdf2Sync(password, salt, iterations, hashLength, 'sha256').toString('hex');
+
+            //Pusheo el req.body que recibe
+            usuarios.push(
+                {
+                    name: req.body.name,
+                    email: req.body.email,
+                    //Hago hash a la contraseña
+                    pass: hash,
+                    salt: salt
+                }
+            );
+            //Reescribo el json con writeFile
+            fs.writeFile(path.join(__dirname, 'server', 'users.json'), JSON.stringify(usuarios), (err) => {
+                if (err)
+                    console.log(err);
+            })
+            res.send({ res: "Usuario Registrado Correctamente" });
+        } else { res.send({ res: "Ya existe el correo o Las Contraseñas no Coinciden" }); }
+    } else { res.send({ res: "No puedes enviar campos vacios" }); }
+});
+//Post Auth
+app.post('/auth', (req, res) => {
+    //Validacion para no enviar campos vacios
+    if (req.body.token != "") {
+        let usu = usuarios[usuarios.findIndex(usuario => usuario.token === req.body.token)];
+        //Validacion para saber que el usuario logueado tenga el token
+        if (usu && req.body.email === usu.email) {
+            res.send({ status: true });
+        } else { res.send({ status: false }) }
+    } else { res.send({ status: false }) }
+});
