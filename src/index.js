@@ -19,8 +19,7 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
-  //Abrir ConsolaDev - 
-  mainWindow.webContents.openDevTools();
+  //Abrir ConsolaDev - mainWindow.webContents.openDevTools();
   const template = [
     {
       label: ""
