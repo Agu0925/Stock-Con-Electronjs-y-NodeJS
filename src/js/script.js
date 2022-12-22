@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrar();
     id();
     arrayProd();
+    //Cargar nombre del usuario
+    document.getElementById("usuario").innerHTML = JSON.parse(localStorage.getItem("usuario")).name;
     //Boton para Buscar los productos
     document.getElementById("mostrar").addEventListener("click", () => {
         mostrar();
@@ -109,6 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("produccion").innerHTML = "";
                 }, 200);
             });
+    });
+    //Boton Cerrar sesion
+    document.getElementById("closeSession").addEventListener("click", () => {
+        localStorage.removeItem("usuario");
+        location.href = "login.html";
     });
 });
 //Hago funcion codigoHTML para simplificar y hacer mas legible la funcion Mostrar

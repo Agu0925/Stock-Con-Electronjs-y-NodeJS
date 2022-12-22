@@ -1,8 +1,9 @@
 let email = document.getElementById("LoginEmail");
 let pass = document.getElementById("LoginPass");
-document.getElementById("btnLogin").addEventListener("click", () => {
+document.getElementById("loginForm").addEventListener("submit", (event) => {
+    event.preventDefault();
     let usuario = {
-        email: email.value,
+        email: email.value.toLowerCase(),
         pass: pass.value
     }
     fetch("http://localhost:3000/login", {
@@ -34,7 +35,6 @@ function logAuth() {
     })
         .then(resp => resp.json())
         .then((data) => {
-            console.log(data.status);
             if (data.status === true) {
                 location.href = "index.html";
             }

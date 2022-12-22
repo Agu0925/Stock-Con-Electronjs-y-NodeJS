@@ -1,9 +1,9 @@
-document.getElementById("register").addEventListener("submit", (event) => {
+document.getElementById("signupForm").addEventListener("submit", (event) => {
     event.preventDefault();
     if (document.getElementById("pass").value === document.getElementById("pass2").value) {
         let objeto = {
             name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
+            email: document.getElementById("email").value.toLowerCase(),
             pass: document.getElementById("pass").value,
             pass2: document.getElementById("pass2").value
         }
@@ -18,6 +18,6 @@ document.getElementById("register").addEventListener("submit", (event) => {
             .then(data => {
                 console.log(data.res);
             });
-        window.location.href = "login.html";
+        location.href = "login.html";
     }
 })
