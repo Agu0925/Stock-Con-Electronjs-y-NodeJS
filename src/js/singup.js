@@ -16,8 +16,12 @@ document.getElementById("signupForm").addEventListener("submit", (event) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.res);
+                if(data.status === true){
+                    document.getElementById("errorSignup").innerHTML = "";
+                    location.href = "login.html";
+                }else{
+                    document.getElementById("errorSignup").innerHTML = data.res;
+                }
             });
-        location.href = "login.html";
     }
 })

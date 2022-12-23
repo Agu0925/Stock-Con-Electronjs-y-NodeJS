@@ -8,7 +8,6 @@ let idProduccion = "";
 document.addEventListener("DOMContentLoaded", () => {
     mostrar();
     id();
-    arrayProd();
     //Cargar nombre del usuario
     document.getElementById("usuario").innerHTML = JSON.parse(localStorage.getItem("usuario")).name;
     //Boton para Buscar los productos
@@ -19,8 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("agregar").addEventListener("click", () => {
         id();
         if (
-            document.getElementById("producto").value != "" && document.getElementById("cantidad").value != "" && document.getElementById("id").value != "" &&
-            !prodArray.includes(document.getElementById("producto").value.toLowerCase())
+            document.getElementById("producto").value != "" && document.getElementById("cantidad").value != "" && document.getElementById("id").value != ""
         ) {
             let objeto = {
                 Producto: document.getElementById("producto").value,
@@ -33,11 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(objeto) // data can be `string` or {object}!
-            });
+            })
+                .then((resp) => resp.json())
+                .then((datos) => {
+                    if (datos.status === true) {
+                        document.getElementById("errorProductos").innerHTML = `<label class="text-success" for="validar"> ${datos.res} </label>`;
+                    } else { document.getElementById("errorProductos").innerHTML = `<label class="text-danger" for="validar"> ${datos.res} </label>`; }
+                });
             setTimeout(() => {
                 mostrar();
-                arrayProd();
             }, 200);
+        } else {
+            document.getElementById("errorProductos").innerHTML = `<label class="text-danger" for="validar"> No puede enviar datos vacios </label>`
         }
     });
     //Boton para modificar un producto
@@ -53,10 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(objeto) // data can be `string` or {object}!
-            });
+            })
+                .then((resp) => resp.json())
+                .then((datos) => {
+                    if (datos.status === true) {
+                        document.getElementById("errorProductos").innerHTML = `<label class="text-success" for="validar"> ${datos.res} </label>`;
+                    } else { document.getElementById("errorProductos").innerHTML = `<label class="text-danger" for="validar"> ${datos.res} </label>`; }
+                });
             setTimeout(() => {
                 mostrar();
             }, 200);
+        } else {
+            document.getElementById("errorProductos").innerHTML = `<label class="text-danger" for="validar"> No se pueden enviar datos vacios </label>`;
         }
     });
     //Boton para borrar un producto
@@ -64,7 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.getElementById("producto").value != "" && document.getElementById("cantidad").value != "" && document.getElementById("id").value != "") {
             fetch(url + document.getElementById("id").value, {
                 method: "DELETE"
-            });
+            })
+                .then((resp) => resp.json())
+                .then((datos) => {
+                    if (datos.status === true) {
+                        document.getElementById("errorProductos").innerHTML = `<label class="text-success" for="validar"> ${datos.res} </label>`;
+                    } else { document.getElementById("errorProductos").innerHTML = `<label class="text-danger" for="validar"> ${datos.res} </label>`; }
+                });
             document.getElementById("producto").value = "";
             document.getElementById("cantidad").value = "";
             setTimeout(() => {
@@ -219,18 +238,6 @@ function id() {
             } else {
                 document.getElementById("id").value = idProd;
             };
-        });
-};
-//Funcion para pushear los nombres en un array para hacer validacion
-function arrayProd() {
-    fetch(url)
-        .then((resp) => resp.json())
-        .then((datos) => {
-            for (const iterator of datos) {
-                if (iterator.Producto) {
-                    prodArray.push(iterator.Producto.toLowerCase());
-                }
-            }
         });
 };
 //Funcion para imprimir todos los productos en el modal

@@ -18,9 +18,10 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
             let iterator = data.res
             if (iterator.status === true) {
                 localStorage.setItem("usuario", JSON.stringify({ name: iterator.name, email: iterator.email, token: iterator.token }));
+                document.getElementById("errorLogin").innerHTML = "";
                 logAuth();
             } else {
-                console.log(data.res);
+                document.getElementById("errorLogin").innerHTML = iterator;
             }
         });
 });

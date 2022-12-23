@@ -7,130 +7,141 @@
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
     <title>Sign In</title>
   </head>
-  <body class="bg-secondary">
-    <div class="container">
-      <div
-        class="card bg-secondary text-white border-white"
-        style="border-radius: 25px"
-      >
-        <div class="card-body p-md-5">
-          <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-              <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                Sign up
-              </p>
-
-              <form id="signupForm">
-                <div class="d-flex flex-row align-items-center mb-4">
-                  <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
-                    <input
-                      type="text"
-                      id="name"
-                      class="form-control"
-                      maxlength="20"
-                      pattern="^\S*$"
-                      required
-                    />
-                    <label class="form-label" for="name">Your Name</label>
-                  </div>
-                </div>
-
-                <div class="d-flex flex-row align-items-center mb-4">
-                  <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
-                    <input
-                      type="email"
-                      id="email"
-                      class="form-control"
-                      minlength="5"
-                      maxlength="100"
-                      pattern="^\S*$"
-                      required
-                    />
-                    <label class="form-label" for="email">Your Email</label>
-                  </div>
-                </div>
-
-                <div class="d-flex flex-row align-items-center mb-4">
-                  <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
-                    <input
-                      type="password"
-                      id="pass"
-                      class="form-control"
-                      minlength="6"
-                      maxlength="20"
-                      pattern="^\S*$"
-                      required
-                    />
-                    <label class="form-label" for="pass">Password</label>
-                  </div>
-                </div>
-
-                <div class="d-flex flex-row align-items-center mb-4">
-                  <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
-                    <input
-                      type="password"
-                      id="pass2"
-                      class="form-control"
-                      minlength="6"
-                      maxlength="20"
-                      pattern="^\S*$"
-                      required
-                    />
-                    <label class="form-label" for="pass2"
-                      >Repeat your password</label
-                    >
-                  </div>
-                </div>
-
-                <div class="form-check d-flex justify-content-center mb-3">
-                  <input
-                    class="form-check-input me-2"
-                    type="checkbox"
-                    value=""
-                    id="checkSignUp"
-                    required
-                  />
-                  <label class="form-check-label" for="form2Example3">
-                    I agree all statements in
-                    <a href="#!">Terms of service</a>
-                  </label>
-                </div>
-                <div class="d-flex justify-content-center mx-4 mb-3">
-                  <button
-                    id="register"
-                    type="submit"
-                    class="btn btn-primary btn-lg"
-                  >
-                    Register
-                  </button>
-                </div>
-                <div>
-                  <p class="mb-0 text-center">
-                    You have an account?
-                    <a href="login.html" class="text-border-white fw-bold"
-                      >Login</a
-                    >
+  <body>
+    <section class="bg-secondary">
+      <div class="container">
+        <div class="col-lg-12 col-xl-11">
+          <div
+            class="card bg-secondary text-white border-white"
+            style="border-radius: 25px"
+          >
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                    Sign up
                   </p>
+
+                  <form id="signupForm">
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input
+                          type="text"
+                          id="name"
+                          class="form-control"
+                          maxlength="20"
+                          pattern="^\S*$"
+                          required
+                        />
+                        <label class="form-label" for="name">Your Name</label>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input
+                          type="email"
+                          id="email"
+                          class="form-control"
+                          minlength="5"
+                          maxlength="100"
+                          pattern="^\S*$"
+                          required
+                        />
+                        <label class="form-label" for="email">Your Email</label>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input
+                          type="password"
+                          id="pass"
+                          class="form-control"
+                          minlength="6"
+                          maxlength="20"
+                          pattern="^\S*$"
+                          required
+                        />
+                        <label class="form-label" for="pass">Password</label>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-2">
+                      <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input
+                          type="password"
+                          id="pass2"
+                          class="form-control"
+                          minlength="6"
+                          maxlength="20"
+                          pattern="^\S*$"
+                          required
+                        />
+                        <label class="form-label" for="pass2"
+                          >Repeat your password</label
+                        >
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <label
+                        class="text-danger mb-4"
+                        id="errorSignup"
+                        for="signupForm"
+                        ></label
+                      >
+                    </div>
+                    <div class="form-check d-flex justify-content-center mb-3">
+                      <input
+                        class="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="checkSignUp"
+                        required
+                      />
+                      <label class="form-check-label" for="form2Example3">
+                        I agree all statements in
+                        <a href="#!">Terms of service</a>
+                      </label>
+                    </div>
+                    <div class="d-flex justify-content-center mx-4 mb-3">
+                      <button
+                        id="register"
+                        type="submit"
+                        class="btn btn-primary btn-lg"
+                      >
+                        Register
+                      </button>
+                    </div>
+                    <div>
+                      <p class="mb-0 text-center">
+                        You have an account?
+                        <a href="login.html" class="text-border-white fw-bold"
+                          >Login</a
+                        >
+                      </p>
+                    </div>
+                  </form>
                 </div>
-              </form>
-            </div>
-            <div
-              class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
-            >
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                class="img-fluid"
-                alt="Sample image"
-              />
+                <div
+                  class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
+                >
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                    class="img-fluid"
+                    alt="Sample image"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./js/singup.js"></script>
   </body>

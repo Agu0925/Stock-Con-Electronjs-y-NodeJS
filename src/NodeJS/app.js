@@ -30,7 +30,7 @@ app.get('/:id', (req, res) => {
 //Metodo POST para cargar datos al json
 app.post('/', (req, res) => {
     //Validacion para no repetir id
-    if (!servidor[servidor.findIndex(servidor => servidor.id == req.body.id)]) {
+    if (req.body.Cantidad != "" && !servidor[servidor.findIndex(servidor => servidor.id === req.body.id)] && !servidor[servidor.findIndex(servidor => servidor.Producto === req.body.Producto)]) {
         //Pusheo el req.body que recibe
         servidor.push(req.body);
         //Reescribo el json con writeFile
@@ -38,8 +38,8 @@ app.post('/', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({res:true});
-    } else { res.send({res:false}); }
+        res.send({status:true, res: "Producto agregado correctamente"});
+    } else { res.send({status:false, res: "El producto ya existe o se duplico el ID prueba nuevamente"}); }
 });
 //Metodo PUT para modificar un item
 app.put('/:id', (req, res) => {
@@ -69,10 +69,10 @@ app.put('/:id', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({res:true});
+        res.send({status:true, res: "El producto se modifico correctamente"});
     } else {
-        //Sino existe mandar el json sin cambios
-        res.send({res:false});
+        //Sino existe mandar la informacion al front
+        res.send({status:false, res: "El producto no se pudo modificar"});
     };
 })
 //Metodo DELETE
@@ -86,10 +86,10 @@ app.delete("/:id", (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({res:true});
+        res.send({status:true, res: "El producto se elimino correctamente"});
     } else {
         //Sino hay objetos con el id seleccionado mando el json sin cambios
-        res.send({res:false});
+        res.send({status:false, res: "El producto no se pudo eliminar"});
     }
 });
 //Metodo Put para anclar productos
@@ -252,9 +252,9 @@ app.post('/signup', (req, res) => {
                 if (err)
                     console.log(err);
             })
-            res.send({ res: "Usuario Registrado Correctamente" });
-        } else { res.send({ res: "Ya existe el correo o Las Contraseñas no Coinciden" }); }
-    } else { res.send({ res: "No puedes enviar campos vacios" }); }
+            res.send({ res: "Usuario Registrado Correctamente", status: true });
+        } else { res.send({ res: "Ya existe el correo o Las Contraseñas no Coinciden", status: false }); }
+    } else { res.send({ res: "No puedes enviar campos vacios", status: false }); }
 });
 //Post Auth
 app.post('/auth', (req, res) => {
