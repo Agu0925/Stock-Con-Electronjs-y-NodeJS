@@ -1,7 +1,6 @@
 //let url = "https://agile-reaches-23713.herokuapp.com/";
 let url = "http://localhost:3000/";
 let idProd = "";
-let prodArray = [];
 let idmodal = "";
 let idProduccion = "";
 //Al cargar toda la pagina
