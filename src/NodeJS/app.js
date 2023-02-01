@@ -7,6 +7,8 @@ let cors = require('cors');
 let path = require('path');
 //Traigo el json a utilizar como base de datos
 let servidor = require(path.join(__dirname, 'server', 'servidor.json'));
+//JSON de usuarios
+let usuarios = require(path.join(__dirname, 'server', 'users.json'));
 //Cors para habilitar envios en local
 app.use(cors());
 //uso express.json para leer el dato enviado como js
@@ -38,15 +40,15 @@ app.post('/', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({status:true, res: "Producto agregado correctamente"});
-    } else { res.send({status:false, res: "El producto ya existe o se duplico el ID prueba nuevamente"}); }
+        res.send({ status: true, res: "Producto agregado correctamente" });
+    } else { res.send({ status: false, res: "El producto ya existe o se duplico el ID prueba nuevamente" }); }
 });
 //Metodo PUT para modificar un item
 app.put('/:id', (req, res) => {
     //Declaro el producto
     let prod = servidor[servidor.findIndex(servidor => servidor.id == req.params.id)];
-    //Validacion para saber que existe este objeto
-    if (prod) {
+    //Validacion para saber que existe este objeto y si el usuario que ingresa es Cristina
+    if (prod && req.body.email == "cristina@hotmail.com") {
         //Validacion para descontar items si es un producto "padre"
         if (prod.partes) {
             //Validacion para restar solamente cuando se suma un nuevo producto "padre"
@@ -69,10 +71,10 @@ app.put('/:id', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({status:true, res: "El producto se modifico correctamente"});
+        res.send({ status: true, res: "El producto se modifico correctamente" });
     } else {
         //Sino existe mandar la informacion al front
-        res.send({status:false, res: "El producto no se pudo modificar"});
+        res.send({ status: false, res: "El producto no se pudo modificar" });
     };
 })
 //Metodo DELETE
@@ -86,10 +88,10 @@ app.delete("/:id", (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({status:true, res: "El producto se elimino correctamente"});
+        res.send({ status: true, res: "El producto se elimino correctamente" });
     } else {
         //Sino hay objetos con el id seleccionado mando el json sin cambios
-        res.send({status:false, res: "El producto no se pudo eliminar"});
+        res.send({ status: false, res: "El producto no se pudo eliminar" });
     }
 });
 //Metodo Put para anclar productos
@@ -111,7 +113,7 @@ app.put('/anclar/:id', (req, res) => {
                     if (err)
                         console.log(err);
                 });
-                res.send({res:true});
+                res.send({ res: true });
             }
             //Sino tiene productos anclados creo el array partes y pusheo el objeto
         } else {
@@ -121,9 +123,9 @@ app.put('/anclar/:id', (req, res) => {
                 if (err)
                     console.log(err);
             });
-            res.send({res:true});
+            res.send({ res: true });
         };
-    } else { res.send({res:false}) };
+    } else { res.send({ res: false }) };
 });
 //Metodo Delete para productos anclados
 //Traigo el array de anclados y selecciono el indice para borrarlo
@@ -144,17 +146,17 @@ app.delete('/anclar/:id', (req, res) => {
                     if (err)
                         console.log(err);
                 });
-                res.send({res:true});
-            } else { res.send({res:false}); };
-        } else { res.send({res:false}) };
-    } else { res.send({res:false}) };
+                res.send({ res: true });
+            } else { res.send({ res: false }); };
+        } else { res.send({ res: false }) };
+    } else { res.send({ res: false }) };
 });
 //Metodo PUT para eliminar de produccion
 app.put('/elimProduccion/:id', (req, res) => {
     //Declaro el producto
     let prod = servidor[servidor.findIndex(servidor => servidor.id == req.params.id)];
-    //Validacion para saber que existe este objeto
-    if (prod) {
+    //Validacion para saber que existe este objeto y si el usuario es cristina
+    if (prod && req.body.email == "cristina@hotmail.com") {
         //Validacion para descontar items si es un producto "padre"
         if (prod.partes) {
             //Validacion para restar solamente cuando se suma un nuevo producto "padre"
@@ -177,17 +179,15 @@ app.put('/elimProduccion/:id', (req, res) => {
             if (err)
                 console.log(err);
         })
-        res.send({res:true});
+        res.send({ res: true });
     } else {
         //Sino existe mandar el json sin cambios
-        res.send({res:false});
+        res.send({ res: false });
     };
 });
 //Login--------------------------------------------------
 //Libreria para Encriptar
 const crypto = require('crypto');
-//Base de usuarios
-let usuarios = require(path.join(__dirname, 'server', 'users.json'));
 //Post Login
 app.post('/login', (req, res) => {
     let usu = usuarios[usuarios.findIndex(usuario => usuario.email === req.body.email)];

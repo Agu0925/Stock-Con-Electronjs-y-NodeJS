@@ -370,18 +370,19 @@ function produccion(id) {
 };
 //Funcion para enviar a "producción"
 function enviarProduccion() {
-    fetch(url)
-        .then((resp) => resp.json())
-        .then((datos) => {
-            let iterator = datos[datos.findIndex(datos => datos.id == idProduccion)];
-            let productoAnclado = "";
-            if (document.getElementById('cantProducto').value > 0) {
-                if (iterator.partes) {
-                    for (const partes of iterator.partes) {
-                        productoAnclado += " - " + partes.Producto + ": <span class='" + "idproduccion" + partes.id + "'>" + partes.cantidad * document.getElementById('cantProducto').value + "</span>" + " ";
-                    };
-                    if (!document.getElementById(`produc${iterator.id}`)) {
-                        document.getElementById('produccion').innerHTML += `
+    if (JSON.parse(localStorage.getItem("usuario")).email == "cristina@hotmail.com") {
+        fetch(url)
+            .then((resp) => resp.json())
+            .then((datos) => {
+                let iterator = datos[datos.findIndex(datos => datos.id == idProduccion)];
+                let productoAnclado = "";
+                if (document.getElementById('cantProducto').value > 0) {
+                    if (iterator.partes) {
+                        for (const partes of iterator.partes) {
+                            productoAnclado += " - " + partes.Producto + ": <span class='" + "idproduccion" + partes.id + "'>" + partes.cantidad * document.getElementById('cantProducto').value + "</span>" + " ";
+                        };
+                        if (!document.getElementById(`produc${iterator.id}`)) {
+                            document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
 <div class="row">
     <div class="col-12 text-end my-2 my-md-1">
@@ -398,23 +399,23 @@ function enviarProduccion() {
 </div>
 </div>
         `;
-                        //Fetch para cambiar el stock
-                        let objeto = {
-                            Producto: iterator.Producto,
-                            Cantidad: parseInt(iterator.Cantidad) + parseInt(document.getElementById('cantProducto').value),
-                        };
-                        fetch(url + iterator.id, {
-                            method: "PUT", // or 'POST'
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(objeto) // data can be `string` or {object}!
-                        });
-                        document.getElementById('cantProducto').value = "";
-                    }
-                } else {
-                    if (!document.getElementById(`produc${iterator.id}`)) {
-                        document.getElementById('produccion').innerHTML += `
+                            //Fetch para cambiar el stock
+                            let objeto = {
+                                Producto: iterator.Producto,
+                                Cantidad: parseInt(iterator.Cantidad) + parseInt(document.getElementById('cantProducto').value),
+                            };
+                            fetch(url + iterator.id, {
+                                method: "PUT", // or 'POST'
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(objeto) // data can be `string` or {object}!
+                            });
+                            document.getElementById('cantProducto').value = "";
+                        }
+                    } else {
+                        if (!document.getElementById(`produc${iterator.id}`)) {
+                            document.getElementById('produccion').innerHTML += `
 <div id="produc${iterator.id}" class="col-md-6 py-md-3 m-auto border btn btn-success">
 <div class="row">
     <div class="col-12 text-end my-2 my-md-1">
@@ -431,26 +432,30 @@ function enviarProduccion() {
 </div>
 </div>
         `;
-                        //Fetch para cambiar el stock
-                        let objeto = {
-                            Producto: iterator.Producto,
-                            Cantidad: parseInt(iterator.Cantidad) + parseInt(document.getElementById('cantProducto').value),
-                        };
-                        fetch(url + iterator.id, {
-                            method: "PUT", // or 'POST'
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(objeto) // data can be `string` or {object}!
-                        });
-                        document.getElementById('cantProducto').value = "";
-                    }
+                            //Fetch para cambiar el stock
+                            let objeto = {
+                                Producto: iterator.Producto,
+                                Cantidad: parseInt(iterator.Cantidad) + parseInt(document.getElementById('cantProducto').value),
+                            };
+                            fetch(url + iterator.id, {
+                                method: "PUT", // or 'POST'
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(objeto) // data can be `string` or {object}!
+                            });
+                            document.getElementById('cantProducto').value = "";
+                        }
+                    };
+                } else {
+                    document.getElementById('cantProducto').value = "";
                 };
-            } else {
-                document.getElementById('cantProducto').value = "";
-            };
-        });
-}
+            });
+    } else {
+        document.getElementById("errorProductos").innerHTML = `<label class="text-danger" for="validar"> Este usuario no puedo realizar esta accion. </label>`;
+        location.href = "#head";
+    }
+};
 //Funcion para sacar de producción
 function sacarProduc(id) {
     fetch(url)
