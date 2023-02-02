@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let objeto = {
                 Producto: document.getElementById("producto").value,
                 Cantidad: parseInt(document.getElementById("cantidad").value),
+                email: JSON.parse(localStorage.getItem("usuario")).email
             };
             fetch(url + document.getElementById("id").value, {
                 method: "PUT", // or 'POST'
