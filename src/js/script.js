@@ -404,6 +404,7 @@ function enviarProduccion() {
                             let objeto = {
                                 Producto: iterator.Producto,
                                 Cantidad: parseInt(iterator.Cantidad) + parseInt(document.getElementById('cantProducto').value),
+                                email: JSON.parse(localStorage.getItem("usuario")).email
                             };
                             fetch(url + iterator.id, {
                                 method: "PUT", // or 'POST'
@@ -467,6 +468,7 @@ function sacarProduc(id) {
             let objeto = {
                 Producto: iterator.Producto,
                 Cantidad: parseInt(iterator.Cantidad) - parseInt(document.getElementById(`c${id}`).innerHTML),
+                email: JSON.parse(localStorage.getItem("usuario")).email
             };
             fetch(url + "elimProduccion/" + iterator.id, {
                 method: "PUT", // or 'POST'

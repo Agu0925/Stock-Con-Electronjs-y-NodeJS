@@ -157,16 +157,16 @@ app.put('/elimProduccion/:id', (req, res) => {
     let prod = servidor[servidor.findIndex(servidor => servidor.id == req.params.id)];
     //Validacion para saber que existe este objeto y si el usuario es cristina
     if (prod && req.body.email == "cristina@hotmail.com") {
-        //Validacion para descontar items si es un producto "padre"
+        //Validacion para Devolver items si es un producto "padre"
         if (prod.partes) {
-            //Validacion para restar solamente cuando se suma un nuevo producto "padre"
+            //Validacion para Devolver solamente cuando se suma un nuevo producto "padre"
             if (prod.Cantidad > req.body.Cantidad) {
                 let multiplicacion = prod.Cantidad - req.body.Cantidad;
                 //Recorro el array de partes que es donde estan los productos "hijos"
                 for (const iterator of prod.partes) {
                     //Declaro el producto "hijo"
                     let stockHijos = servidor[servidor.findIndex(servidor => servidor.id == iterator.id)];
-                    //Lo resto identificando el producto por id con findIndex
+                    //Lo sumo identificando el producto por id con findIndex
                     stockHijos.Cantidad = stockHijos.Cantidad + (iterator.cantidad * multiplicacion);
                 };
             };
